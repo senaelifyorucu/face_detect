@@ -4,21 +4,21 @@ import cv2
 import numpy as np
 import sqlite3
 
-faceDetector = cv2.CascadeClassifier('haarcascade_frontalface_default.xml');
+faceDetector = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 cam = cv2.VideoCapture(0);
 
 def insertorupdate(Id, Name, age):
-    conn = sqlite3.connect("database.db.txt")
-    cmd="SELECT * FROM STUDENTS WHERE ID=" + str(Id);
-    cursor = conn.execute(cmd);
-    isRecordExists = 0;
+    conn = sqlite3.connect("sqlite.db")
+    cmd="SELECT * FROM STUDENTS WHERE ID=" + str(Id)
+    cursor = conn.execute(cmd)
+    isRecordExists = 0
     for row in cursor:
-        isRecordExists = 1;
+        isRecordExists = 1
     if(isRecordExists ==1):
-        conn.execute("UPDATE STUDENTS SET NAME=? WHERE ID=?", parameters= (Name, Id,))
+        conn.execute("UPDATE STUDENTS SET Name=? WHERE ID=?", parameters=(Name, Id,))
         conn.execute("UPDATE STUDENTS SET age=? WHERE ID=?", parameters=(age, Id,))
     else:
-        conn.execute("INSERT INTO STUDENTS (Id, Name, age) VALUES (?, ?, ?)", parameters= (Id, Name, age))
+        conn.execute("INSERT INTO STUDENTS (Id, Name, age) VALUES (?, ?, ?)", parameters=(Id, Name, age))
     conn.commit()
     conn.close()
 
@@ -26,7 +26,7 @@ Id=input('Enter User Id')
 Name=input('Enter User Name')
 age=input('Enter User Age')
 insertorupdate(Id, Name, age)
-#detect face in web camera coding
+
 sampleNum=0;                     #assume there is no samples in dataset
 while(True):
     ret,img=cam.read();          #open camera

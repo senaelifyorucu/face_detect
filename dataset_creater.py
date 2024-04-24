@@ -31,7 +31,7 @@ sampleNum=0;                     #assume there is no samples in dataset
 while(True):
     ret,img=cam.read();          #open camera
     gray=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)     #image convert into BGRGRAY COLOR
-    faces=faceDetect.detectMultiScale(gray, scaleFactor=1.3, minNeighbors=5)
+    faces = faceDetector.detectMultiScale(gray, scaleFactor=1.3, minNeighbors=5)
     for (x,y,w,h) in faces:
         sampleNum=sampleNum+1;      #if face is detected increments
         cv2.imwrite("dataset/user."+str(Id)+"."+str(sampleNum)+".jpg",gray[y:y+h,x:x+w])
